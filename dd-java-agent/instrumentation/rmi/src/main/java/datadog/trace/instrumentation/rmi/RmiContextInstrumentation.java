@@ -29,6 +29,17 @@ public class RmiContextInstrumentation extends Instrumenter.Default {
   }
 
   @Override
+  public String[] helperClassNames() {
+    return new String[] {
+      "datadog.trace.instrumentation.rmi.StreamRemoteCallConstructorAdvice",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload",
+      "datadog.trace.instrumentation.rmi.context.ContextServer",
+      "datadog.trace.instrumentation.rmi.context.ContextServer_Stub",
+      "datadog.trace.instrumentation.rmi.context.ContextTransport"
+    };
+  }
+
+  @Override
   public Map<? extends ElementMatcher<? super MethodDescription>, String> transformers() {
     return singletonMap(
         isConstructor()

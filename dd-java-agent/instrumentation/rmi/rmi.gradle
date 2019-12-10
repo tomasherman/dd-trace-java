@@ -9,4 +9,11 @@ task "rmic", dependsOn: testClasses {
   command.execute().text
 }
 
+// TODO:
+task "compileContextServerStub", dependsOn: testClasses {
+  def clazz = 'datadog.trace.instrumentation.rmi.context.ContextServer'
+  String command = """rmic -g -keep -classpath ${sourceSets.main.output.classesDirs.asPath} -d ${buildDir}/classes/java/main ${clazz}"""
+  println command.execute().text
+}
+
 test.dependsOn "rmic"
