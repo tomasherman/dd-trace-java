@@ -2,6 +2,7 @@ package datadog.trace.instrumentation.rmi;
 
 import static datadog.trace.instrumentation.api.AgentTracer.activateSpan;
 import static datadog.trace.instrumentation.api.AgentTracer.startSpan;
+import static datadog.trace.instrumentation.rmi.context.ContextPayload.EXTRACT_CONTEXT_ONCE;
 
 import datadog.trace.api.DDTags;
 import datadog.trace.instrumentation.api.AgentScope;
@@ -9,13 +10,20 @@ import datadog.trace.instrumentation.api.AgentSpan;
 import net.bytebuddy.asm.Advice;
 
 public class ServerAdvice {
-  @Advice.OnMethodEnter(suppress = Throwable.class)
+  @Advice.OnMethodEnter(suppress = Throwable.class, inline = false)
   public static AgentScope onEnter(
       @Advice.This final Object thiz, @Advice.Origin(value = "#m") final String method) {
-    final AgentSpan span =
-        startSpan("rmi.request")
-            .setTag(DDTags.RESOURCE_NAME, thiz.getClass().getSimpleName() + "#" + method)
-            .setTag("span.origin.type", thiz.getClass().getCanonicalName());
+    final AgentSpan.Context context = EXTRACT_CONTEXT_ONCE();
+
+    final AgentSpan span;
+    if (context == null) {
+      span = startSpan("rmi.request");
+
+    } else {
+      span = startSpan("rmi.request", context);
+    }
+    span.setTag(DDTags.RESOURCE_NAME, thiz.getClass().getSimpleName() + "#" + method)
+        .setTag("span.origin.type", thiz.getClass().getCanonicalName());
     return activateSpan(span, true);
   }
 

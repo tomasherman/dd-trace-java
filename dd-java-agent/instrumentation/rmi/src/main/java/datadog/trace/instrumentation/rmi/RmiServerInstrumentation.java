@@ -24,6 +24,23 @@ public final class RmiServerInstrumentation extends Instrumenter.Default {
   }
 
   @Override
+  public String[] helperClassNames() {
+    return new String[] {
+      "datadog.trace.instrumentation.rmi.context.ContextPayload$InjectAdapter",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload$ExtractAdapter",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload",
+      // context classes
+      "datadog.trace.instrumentation.rmi.context.StreamRemoteCallConstructorAdvice",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload$InjectAdapter",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload$ExtractAdapter",
+      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice",
+      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$ContextDispatcher",
+      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$DummyRemote"
+    };
+  }
+
+  @Override
   public ElementMatcher<TypeDescription> typeMatcher() {
     return not(isInterface()).and(safeHasSuperType(named("java.rmi.server.RemoteServer")));
   }

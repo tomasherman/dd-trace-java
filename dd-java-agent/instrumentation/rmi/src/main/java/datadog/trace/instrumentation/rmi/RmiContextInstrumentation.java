@@ -21,6 +21,7 @@ import sun.rmi.transport.StreamRemoteCall;
 
 @AutoService(Instrumenter.class)
 public class RmiContextInstrumentation extends Instrumenter.Default {
+  // TODO clean this up
 
   public RmiContextInstrumentation() {
     super("rmi", "rmi-context-propagator");
@@ -38,8 +39,11 @@ public class RmiContextInstrumentation extends Instrumenter.Default {
   public String[] helperClassNames() {
     return new String[] {
       "datadog.trace.instrumentation.rmi.context.StreamRemoteCallConstructorAdvice",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload$InjectAdapter",
+      "datadog.trace.instrumentation.rmi.context.ContextPayload$ExtractAdapter",
       "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice",
-      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$EhloDispatcher",
+      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$ContextDispatcher",
       "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$DummyRemote"
     };
   }
