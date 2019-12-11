@@ -3,18 +3,19 @@ package datadog.trace.instrumentation.rmi.context;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import lombok.experimental.Accessors;
 import sun.rmi.transport.Channel;
 import sun.rmi.transport.Connection;
 
 public class ConnectionProxy implements Connection {
-  final Connection target;
+  private final Connection target;
+  @Accessors private final boolean instrumentedServer;
+  @Accessors private final boolean checkPerformed;
 
   public ConnectionProxy(final Connection target) {
+    instrumentedServer = false;
+    checkPerformed = false;
     this.target = target;
-  }
-
-  public boolean isConnectedToInstrumentedServer() {
-    return true;
   }
 
   @Override
@@ -29,7 +30,6 @@ public class ConnectionProxy implements Connection {
 
   @Override
   public OutputStream getOutputStream() throws IOException {
-
     return target.getOutputStream();
   }
 

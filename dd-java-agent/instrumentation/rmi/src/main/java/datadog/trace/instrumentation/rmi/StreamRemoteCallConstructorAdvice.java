@@ -26,9 +26,9 @@ public class StreamRemoteCallConstructorAdvice {
     if (internalCall.get()) {
       return;
     }
-    if (c == null) {
-      return;
-    }
+    //    if (!(c instanceof ConnectionProxy)) {
+    //      return;
+    //    }
 
     if (!c.isReusable()) {
       return;
