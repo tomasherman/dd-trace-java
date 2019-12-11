@@ -11,6 +11,7 @@ import static net.bytebuddy.matcher.ElementMatchers.takesArgument;
 
 import com.google.auto.service.AutoService;
 import datadog.trace.agent.tooling.Instrumenter;
+import datadog.trace.instrumentation.rmi.context.ContextPayload;
 import java.util.HashMap;
 import java.util.Map;
 import net.bytebuddy.description.method.MethodDescription;
@@ -39,7 +40,8 @@ public class RmiContextInstrumentation extends Instrumenter.Default {
   public String[] helperClassNames() {
     return new String[] {
       "datadog.trace.instrumentation.rmi.context.StreamRemoteCallConstructorAdvice",
-      "datadog.trace.instrumentation.rmi.context.ContextPayload",
+      //      "datadog.trace.instrumentation.rmi.context.ContextPayload",
+      ContextPayload.class.getName(),
       "datadog.trace.instrumentation.rmi.context.ContextPayload$InjectAdapter",
       "datadog.trace.instrumentation.rmi.context.ContextPayload$ExtractAdapter",
       "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice",

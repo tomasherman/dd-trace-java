@@ -28,15 +28,7 @@ public final class RmiServerInstrumentation extends Instrumenter.Default {
     return new String[] {
       "datadog.trace.instrumentation.rmi.context.ContextPayload$InjectAdapter",
       "datadog.trace.instrumentation.rmi.context.ContextPayload$ExtractAdapter",
-      "datadog.trace.instrumentation.rmi.context.ContextPayload",
-      // context classes
-      "datadog.trace.instrumentation.rmi.context.StreamRemoteCallConstructorAdvice",
-      "datadog.trace.instrumentation.rmi.context.ContextPayload",
-      "datadog.trace.instrumentation.rmi.context.ContextPayload$InjectAdapter",
-      "datadog.trace.instrumentation.rmi.context.ContextPayload$ExtractAdapter",
-      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice",
-      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$ContextDispatcher",
-      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$DummyRemote"
+      "datadog.trace.instrumentation.rmi.context.ContextPayload"
     };
   }
 
