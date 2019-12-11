@@ -37,17 +37,10 @@ public class RmiContextInstrumentation extends Instrumenter.Default {
   @Override
   public String[] helperClassNames() {
     return new String[] {
-      "datadog.trace.instrumentation.rmi.StreamRemoteCallConstructorAdvice",
+      "datadog.trace.instrumentation.rmi.context.StreamRemoteCallConstructorAdvice",
       "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice",
-      "datadog.trace.instrumentation.rmi.context.ContextPayload",
-      "datadog.trace.instrumentation.rmi.context.ContextServer",
-      "datadog.trace.instrumentation.rmi.context.ContextServer_Stub",
-      "datadog.trace.instrumentation.rmi.context.ContextTransport",
-      "datadog.trace.instrumentation.rmi.context.ConnectionProxy",
       "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$EhloDispatcher",
-      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$DummyRemote",
-      "sun.rmi.transport.Target",
-      "java.rmi.server.ObjID"
+      "datadog.trace.instrumentation.rmi.context.ObjectTableAdvice$DummyRemote"
     };
   }
 
@@ -59,7 +52,7 @@ public class RmiContextInstrumentation extends Instrumenter.Default {
         isConstructor()
             .and(takesArgument(0, named("sun.rmi.transport.Connection")))
             .and(takesArgument(1, named("java.rmi.server.ObjID"))),
-        "datadog.trace.instrumentation.rmi.StreamRemoteCallConstructorAdvice");
+        "datadog.trace.instrumentation.rmi.context.StreamRemoteCallConstructorAdvice");
 
     transformers.put(
         isMethod().and(isStatic()).and(named("getTarget")),
