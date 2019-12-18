@@ -58,14 +58,14 @@ public class RmiContextInstrumentation extends Instrumenter.Default {
   @Override
   public String[] helperClassNames() {
     return new String[] {
-      packageName + ".StreamRemoteCallConstructorAdvice",
       packageName + ".ContextPayload",
       packageName + ".ContextPayload$InjectAdapter",
       packageName + ".ContextPayload$ExtractAdapter",
-      packageName + ".ObjectTableAdvice",
       packageName + ".ContextDispatcher",
-      packageName + ".ObjectEndpointConstructorAdvice",
-      packageName + ".ObjectTableAdvice$DummyRemote"
+      packageName + ".StreamRemoteCallConstructorAdvice",
+      packageName + ".ObjectTableAdvice",
+      packageName + ".ObjectTableAdvice$DummyRemote",
+      packageName + ".ObjectEndpointConstructorAdvice"
     };
   }
 
